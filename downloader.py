@@ -53,9 +53,13 @@ def theSnipper():
         if msTimestamps[0] >= msTimestamps[1]:
             easygui.msgbox("start time greater than end time, cannot cut. run again and do math")
             theSnipper()
-        elif msTimestamps[0] >= (song.duration_seconds * 1000):
+        if msTimestamps[0] >= (song.duration_seconds * 1000):
             easygui.msgbox("your start time is longer than the video. double check the videos length and run again")
             theSnipper()
+        # this stops users from entering something stupid like 55 hours as the end cut and then getting all
+        # surprised_pikachu.FLAC when pydub actually treats the mp3 as being 55 hours long
+        elif msTimestamps[1] >= (song.duration_seconds * 1000):
+            msTimestamps[1] = (song.duration_seconds * 1000)
 
         # the song is then saved over the original with the same title
         newSong = song[msTimestamps[0]:msTimestamps[1]]

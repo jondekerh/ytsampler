@@ -1,0 +1,4 @@
+easygui==0.98.3
+pydub==0.25.1
+ffmpeg==1.4
+pytube==12.1.3
